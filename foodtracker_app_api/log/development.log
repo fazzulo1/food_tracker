@@ -1,0 +1,313 @@
+  [1m[35m (625.0ms)[0m  [1m[35mCREATE DATABASE "foodtracker_app_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (361.1ms)[0m  [1m[35mCREATE DATABASE "foodtracker_app_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3254614380983266035)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateFoods (20190910144028)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(3254614380983266035)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3254614380983266035)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateFoods (20190910144028)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.1ms)[0m  [1m[35mCREATE TABLE "foods" ("id" bigserial primary key, "prod_id" integer, "item" character varying, "quantity" integer, "pic" character varying, "days_expiration" integer, "location" character varying, "nutrifacts" character varying)[0m
+  [1m[36mprimary::SchemaMigration Create (2.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190910144028"]]
+  [1m[35m (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (4.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-09-10 14:56:44.281012"], ["updated_at", "2019-09-10 14:56:44.281012"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(3254614380983266035)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mFood Load (0.4ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Create (2.1ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item") VALUES ($1, $2) RETURNING "id"[0m  [["prod_id", 1], ["item", "papaya"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFood Load (0.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mFood Load (0.4ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mFood Load (0.8ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Destroy (1.7ms)[0m  [1m[31mDELETE FROM "foods" WHERE "foods"."id" = $1[0m  [["id", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFood Load (0.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Create (4.4ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 1], ["item", "bananas"], ["quantity", 4], ["pic", "ji:grinning-face"], ["days_expiration", 4], ["location", "fridge"], ["nutrifacts", "tbd"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Create (0.3ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 2], ["item", "rice"], ["quantity", 1], ["pic", "ji:grinning-face"], ["days_expiration", 30], ["location", "pantry"], ["nutrifacts", "tbd"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Create (0.4ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 3], ["item", "milk"], ["quantity", 1], ["pic", "ji:grinning-face"], ["days_expiration", 7], ["location", "fridge"], ["nutrifacts", "tbd"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Create (0.3ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 4], ["item", "cookies"], ["quantity", 1], ["pic", "ji:grinning-face"], ["days_expiration", 30], ["location", "pantry"], ["nutrifacts", "tbd"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/" for ::1 at 2019-09-10 11:32:54 -0400
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/haroldmiranda1/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/gems/railties-6.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/haroldmiranda1/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/gems/railties-6.0.0/lib/rails/templates/rails/welcome/index.html.erb (Duration: 15.4ms | Allocations: 480)
+Completed 200 OK in 35ms (Views: 26.8ms | ActiveRecord: 0.0ms | Allocations: 2609)
+
+
+Started GET "/foods" for ::1 at 2019-09-10 11:47:46 -0400
+Processing by FoodsController#index as HTML
+  [1m[36mFood Load (0.8ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 33ms (Views: 20.2ms | ActiveRecord: 9.7ms | Allocations: 7014)
+
+
+Started GET "/foods/1" for ::1 at 2019-09-10 11:49:28 -0400
+Processing by FoodsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mFood Load (0.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:8:in `show'
+Completed 404 Not Found in 30ms (ActiveRecord: 8.9ms | Allocations: 1848)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Food with 'id'=1):
+  
+app/controllers/foods_controller.rb:8:in `show'
+Started GET "/foods/1" for ::1 at 2019-09-10 11:50:22 -0400
+Processing by FoodsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mFood Load (0.9ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:8:in `show'
+Completed 404 Not Found in 4ms (ActiveRecord: 0.9ms | Allocations: 644)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Food with 'id'=1):
+  
+app/controllers/foods_controller.rb:8:in `show'
+Started GET "/foods" for ::1 at 2019-09-10 11:51:00 -0400
+Processing by FoodsController#index as HTML
+  [1m[36mFood Load (1.2ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 75ms (Views: 69.1ms | ActiveRecord: 1.2ms | Allocations: 5767)
+
+
+Started GET "/foods/2" for ::1 at 2019-09-10 11:51:10 -0400
+Processing by FoodsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mFood Load (0.7ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:8:in `show'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.7ms | Allocations: 701)
+
+
+Started GET "/foods/2" for ::1 at 2019-09-10 11:52:39 -0400
+Processing by FoodsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mFood Load (0.4ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:8:in `show'
+Completed 200 OK in 37ms (Views: 0.8ms | ActiveRecord: 9.4ms | Allocations: 6030)
+
+
+Started GET "/foods" for ::1 at 2019-09-10 12:03:19 -0400
+Processing by FoodsController#index as */*
+  [1m[36mFood Load (1.1ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 24ms (Views: 18.2ms | ActiveRecord: 1.1ms | Allocations: 6271)
+
+
+Started POST "/foods" for ::1 at 2019-09-10 12:14:59 -0400
+Processing by FoodsController#create as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"\\u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+  [1m[36mFood Create (3.9ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 5], ["item", "apple"], ["quantity", 3], ["pic", "\\u{1F34F}"], ["days_expiration", 3], ["location", "fridge"], ["nutrifacts", "fruit"]]
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+Completed 200 OK in 39ms (Views: 1.8ms | ActiveRecord: 6.5ms | Allocations: 2555)
+
+
+Started POST "/foods" for ::1 at 2019-09-10 12:15:21 -0400
+Processing by FoodsController#create as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+  [1m[36mFood Create (0.5ms)[0m  [1m[32mINSERT INTO "foods" ("prod_id", "item", "quantity", "pic", "days_expiration", "location", "nutrifacts") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["prod_id", 5], ["item", "apple"], ["quantity", 3], ["pic", "u{1F34F}"], ["days_expiration", 3], ["location", "fridge"], ["nutrifacts", "fruit"]]
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/foods_controller.rb:16:in `create'
+Completed 200 OK in 69ms (Views: 62.7ms | ActiveRecord: 1.3ms | Allocations: 2365)
+
+
+Started GET "/foods" for ::1 at 2019-09-10 12:15:44 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (0.7ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 5ms (Views: 3.4ms | ActiveRecord: 0.7ms | Allocations: 1637)
+
+
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+Started DELETE "/foods/7" for ::1 at 2019-09-10 12:22:12 -0400
+Processing by FoodsController#destroy as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"7"}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 1494)
+
+
+  
+NameError (uninitialized constant FoodsController::Song):
+  
+app/controllers/foods_controller.rb:30:in `destroy'
+Started GET "/foods/7" for ::1 at 2019-09-10 12:22:17 -0400
+Processing by FoodsController#show as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"7"}
+  [1m[36mFood Load (0.7ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:9:in `show'
+Completed 200 OK in 38ms (Views: 0.8ms | ActiveRecord: 1.1ms | Allocations: 5834)
+
+
+Started GET "/foods" for ::1 at 2019-09-10 12:22:29 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (0.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.6ms | Allocations: 1598)
+
+
+Started DELETE "/foods/7" for ::1 at 2019-09-10 12:22:43 -0400
+Processing by FoodsController#destroy as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"7"}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms | Allocations: 1468)
+
+
+  
+NameError (uninitialized constant FoodsController::Song):
+  
+app/controllers/foods_controller.rb:30:in `destroy'
+Started GET "/foods" for ::1 at 2019-09-10 12:22:58 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.5ms | Allocations: 1596)
+
+
+  [1m[36mFood Load (3.1ms)[0m  [1m[34mSELECT "foods".* FROM "foods" LIMIT $1[0m  [["LIMIT", 11]]
+Started DELETE "/foods/7" for ::1 at 2019-09-10 12:24:01 -0400
+Processing by FoodsController#destroy as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"7"}
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms | Allocations: 1468)
+
+
+  
+NameError (uninitialized constant FoodsController::Song):
+  
+app/controllers/foods_controller.rb:30:in `destroy'
+Started GET "/foods" for ::1 at 2019-09-10 12:24:14 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (1.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 82ms (Views: 76.6ms | ActiveRecord: 1.5ms | Allocations: 1599)
+
+
+Started DELETE "/foods/7" for ::1 at 2019-09-10 12:24:59 -0400
+Processing by FoodsController#destroy as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"7"}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1469)
+
+
+  
+NameError (uninitialized constant FoodsController::Song):
+  
+app/controllers/foods_controller.rb:30:in `destroy'
+Started GET "/foods" for ::1 at 2019-09-10 12:25:16 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (0.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.6ms | Allocations: 1596)
+
+
+  [1m[36mFood Load (1.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mFood Load (1.1ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFood Destroy (9.6ms)[0m  [1m[31mDELETE FROM "foods" WHERE "foods"."id" = $1[0m  [["id", 7]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/foods" for ::1 at 2019-09-10 12:29:26 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.0ms | Allocations: 442)
+
+
+  
+ArgumentError (You need to supply at least one validation):
+  
+app/models/food.rb:2:in `<class:Food>'
+app/models/food.rb:1:in `<main>'
+app/controllers/foods_controller.rb:4:in `index'
+Started GET "/foods" for ::1 at 2019-09-10 12:29:37 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (7.4ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 55ms (Views: 16.9ms | ActiveRecord: 37.1ms | Allocations: 6364)
+
+
+Started DELETE "/foods/6" for ::1 at 2019-09-10 12:29:54 -0400
+Processing by FoodsController#destroy as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"6"}
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms | Allocations: 1469)
+
+
+  
+NameError (uninitialized constant FoodsController::Song):
+  
+app/controllers/foods_controller.rb:30:in `destroy'
+Started GET "/foods" for ::1 at 2019-09-10 12:30:32 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.0ms | Allocations: 397)
+
+
+  
+ArgumentError (You need to supply at least one validation):
+  
+app/models/food.rb:2:in `<class:Food>'
+app/models/food.rb:1:in `<main>'
+app/controllers/foods_controller.rb:4:in `index'
+Started PUT "/foods/6" for ::1 at 2019-09-10 12:30:44 -0400
+Processing by FoodsController#update as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"u{1F34F}", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"6"}
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:24:in `update'
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+  [1m[36mFood Update (2.0ms)[0m  [1m[33mUPDATE "foods" SET "pic" = $1 WHERE "foods"."id" = $2[0m  [["pic", "u{1F34F}"], ["id", 6]]
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+Completed 200 OK in 99ms (Views: 0.6ms | ActiveRecord: 15.6ms | Allocations: 7921)
+
+
+Started PUT "/foods/6" for ::1 at 2019-09-10 12:31:03 -0400
+Processing by FoodsController#update as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"url", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}, "id"=>"6"}
+  [1m[36mFood Load (0.5ms)[0m  [1m[34mSELECT "foods".* FROM "foods" WHERE "foods"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/foods_controller.rb:24:in `update'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+  [1m[36mFood Update (0.6ms)[0m  [1m[33mUPDATE "foods" SET "pic" = $1 WHERE "foods"."id" = $2[0m  [["pic", "url"], ["id", 6]]
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/foods_controller.rb:25:in `update'
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 2.2ms | Allocations: 2896)
+
+
+Started GET "/foods" for ::1 at 2019-09-10 12:31:14 -0400
+Processing by FoodsController#index as */*
+  Parameters: {"food"=>{"prod_id"=>"5", "item"=>"apple", "quantity"=>"3", "pic"=>"url", "days_expiration"=>"3", "location"=>"fridge", "nutrifacts"=>"fruit"}}
+  [1m[36mFood Load (10.6ms)[0m  [1m[34mSELECT "foods".* FROM "foods"[0m
+  ↳ app/controllers/foods_controller.rb:4:in `index'
+Completed 200 OK in 15ms (Views: 3.6ms | ActiveRecord: 10.6ms | Allocations: 1471)
+
+
