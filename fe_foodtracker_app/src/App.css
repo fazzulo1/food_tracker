@@ -3,7 +3,8 @@
 }
 
 body {
-  background: #97cdee;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  /* background: #97cdee; */
 }
 
 .container {
@@ -13,59 +14,58 @@ body {
 
 .table {
   margin: 0 auto;
-  /* border: 1px solid gray; */
   background: white;
   text-align: center;
-  /* border-radius: 7px; */
-  margin-top: 20px;
   font-size: 14px;
-  /* width: 40%; */
+  border: 1px solid lightgrey;
 }
-.head {
-  text-align: center;
-  word-spacing: 10px;
-  width: 100%;
-  height: 50px;
-  background: lightpink;
-  padding-top: 4%;
-  margin: 5% auto 0 auto;
-  /* border: 4px double grey; */
-  /* border-radius: 7px; */
-  font-size: 16px;
-  font-weight: 700;
-}
-th,
-td {
+
+thead {
   padding: 5px;
-  /* border: 3px double gray; */
-  /* border-radius: 7px; */
-  /* width: 50%; */
+  border: 1px solid lightgrey;
+}
+
+tr {
+  margin: 5px;
+  border: 1px solid lightgrey;
 }
 th {
   background: lightpink;
+  border: 1px solid lightgrey;
 }
 tr:hover {
-  background: #97cdee;
+  /* background: #97cdee; */
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
-button {
+td {
+  border: 1px solid lightgrey;
+}
+
+.logo {
   margin-top: 10px;
+  border: 5px double white;
+  border-bottom: none;
 }
 .edit {
   background: lightyellow;
   border-radius: 7px;
+  margin-top: 2px;
 }
 .delete {
   background: rgb(235, 169, 169);
   border-radius: 7px;
+  margin-top: 2px;
 }
 .addButton {
-  width: 200px;
-  display: block;
+  display: inline;
   margin: 0 auto;
-  margin-top: 10px;
+  border: 5px double white;
 }
 .modal {
   display: inline;
-  /* width: 500px; */
   margin: 0 auto;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+.modal1 {
+  background: green;
 }

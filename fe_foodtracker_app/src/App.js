@@ -11,7 +11,8 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
+  ButtonGroup
 } from 'reactstrap';
 
 import axios from 'axios';
@@ -29,6 +30,7 @@ class App extends Component {
         location: ''
       },
       editFoodData: {
+        id: '',
         item: '',
         quantity: '',
         pic: '',
@@ -40,18 +42,28 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getFoods();
+  componentWillMount() {
+    // axios.get('/foods').then(response => {
+    //   console.log(response);
+    //   this.setState({
+    //     foods: response.data.foods
+    //   });
+    // });
+    this.refreshFoods();
   }
 
-  async getFoods() {
-    const response = await axios.get('/foods');
-    console.log(response);
-    const data = response.data.foods;
-    this.setState({
-      foods: data
-    });
-  }
+  // componentDidMount() {
+  //   this.getFoods();
+  // }
+
+  // async getFoods() {
+  //   const response = await axios.get('/foods');
+  //   console.log(response);
+  //   const data = response.data.foods;
+  //   this.setState({
+  //     foods: data
+  //   });
+  // }
 
   toggleNewFoodModal() {
     this.setState({
@@ -83,14 +95,12 @@ class App extends Component {
         }
       });
     });
+    return this.state.foods;
   }
-
-  // componentDidMount() {
-  //   this.refreshFoods();
-  // }
 
   updateFood() {
     let {
+      id,
       item,
       quantity,
       days_expiration,
@@ -98,7 +108,7 @@ class App extends Component {
       pic
     } = this.state.editFoodData;
     axios
-      .put('/foods' + this.state.editFoodData.id, {
+      .put('/foods/' + this.state.editFoodData.id, {
         item,
         quantity,
         days_expiration,
@@ -122,20 +132,26 @@ class App extends Component {
       });
   }
 
-  async refreshFoods() {
-    const response = await axios.get('/foods');
-    console.log(response);
-    const data = response.data.foods;
-    this.setState({
-      foods: data
+  refreshFoods() {
+    axios.get('/foods').then(response => {
+      console.log(response);
+      this.setState({
+        foods: response.data.foods
+      });
     });
   }
 
   editFood(id, item, quantity, days_expiration, location, pic) {
     console.log(item);
     this.setState({
-      editFoodData: { item, quantity, days_expiration, location, pic },
+      editFoodData: { id, item, quantity, days_expiration, location, pic },
       editFoodModal: !this.state.editFoodModal
+    });
+  }
+
+  deleteFood(id) {
+    axios.delete('foods/' + id).then(response => {
+      this.refreshFoods();
     });
   }
 
@@ -143,14 +159,25 @@ class App extends Component {
     return (
       <div className='App container'>
         {/* Header comonent */}
-        <header>FOOD TRACKER APP</header>
-        <Button
-          color='primary'
-          className='addButton'
-          onClick={this.toggleNewFoodModal.bind(this)}
-        >
-          Add a food item
+        {/* <header>FOOD TRACKER APP</header> */}
+        <Button color='primary' className='logo'>
+          F<span>🍎🍏D</span> TRACKER
         </Button>
+        <ButtonGroup>
+          <Button
+            color='primary'
+            className='addButton'
+            onClick={this.toggleNewFoodModal.bind(this)}
+          >
+            Add a food item
+          </Button>
+          <Button color='primary' className='addButton'>
+            Check the Fridge
+          </Button>
+          <Button color='primary' className='addButton'>
+            Check the Pantry
+          </Button>
+        </ButtonGroup>
         <Modal
           className='modal'
           isOpen={this.state.newFoodModal}
@@ -320,13 +347,13 @@ class App extends Component {
         </Modal>
         {/* edit modal  */}
 
-        <Table bordered size='sm' className='table'>
+        <Table size='sm' className='table'>
           <thead>
-            <tr>
+            {/* <tr>
               <th className='head' colSpan='6'>
-                F<span>🍎🍏D</span> TRACKER
-              </th>
-            </tr>
+                {/* F<span>🍎🍏D</span> TRACKER */}
+            {/* </th>
+            </tr> */}
             <tr>
               <th>Item</th>
               <th>Quantity</th>
@@ -360,7 +387,11 @@ class App extends Component {
                   >
                     ✍
                   </button>
-                  <button type='submit' className='delete'>
+                  <button
+                    type='submit'
+                    className='delete'
+                    onClick={this.deleteFood.bind(this, food.id)}
+                  >
                     ❌
                   </button>
                 </tr>
