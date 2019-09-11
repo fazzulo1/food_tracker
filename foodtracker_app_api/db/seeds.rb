@@ -6,8 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Food.create([
-    {prod_id: 1, item: "bananas", quantity: 4, pic: "ji:grinning-face", days_expiration: 4, location: "fridge", nutrifacts: "tbd"},
-    {prod_id: 2, item: "rice", quantity: 1, pic: "ji:grinning-face", days_expiration: 30, location: "pantry", nutrifacts: "tbd"},
-    {prod_id: 3, item: "milk", quantity: 1, pic: "ji:grinning-face", days_expiration: 7, location: "fridge", nutrifacts: "tbd"},
-    {prod_id: 4, item: "cookies", quantity: 1, pic: "ji:grinning-face", days_expiration: 30, location: "pantry", nutrifacts: "tbd"}
+    {prod_id: 1, item: "bananas", quantity: 4, pic: 🍎, days_expiration: 4, location: "fridge", nutrifacts: "tbd"},
+    {prod_id: 2, item: "rice", quantity: 1, pic: 🍚 , days_expiration: 30, location: "pantry", nutrifacts: "tbd"},
+    {prod_id: 3, item: "milk", quantity: 1, pic: 🥛 , days_expiration: 7, location: "fridge", nutrifacts: "tbd"},
+    {prod_id: 4, item: "cookies", quantity: 1, pic: 🍪 days_expiration: 30, location: "pantry", nutrifacts: "tbd"}
 ])
+
+
