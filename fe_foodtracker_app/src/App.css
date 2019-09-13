@@ -4,14 +4,13 @@
 
 body {
   background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-  /* background: #97cdee; */
 }
 
 .container {
   display: flex;
   flex-direction: column;
 }
-
+/* table  */
 .table {
   margin: 0 auto;
   background: white;
@@ -34,7 +33,6 @@ th {
   border: 1px solid lightgrey;
 }
 tr:hover {
-  /* background: #97cdee; */
   background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 td {
@@ -45,16 +43,33 @@ td {
   margin-top: 10px;
   border: 5px double white;
   border-bottom: none;
+  width: 100%;
+}
+.logo1 {
+  border: 5px double white;
+  width: 100%;
+}
+.emoji:hover {
+  background: orange;
 }
 .edit {
   background: lightyellow;
   border-radius: 7px;
   margin-top: 2px;
 }
+.edit:hover {
+  background: green;
+}
 .delete {
   background: rgb(235, 169, 169);
   border-radius: 7px;
   margin-top: 2px;
+}
+.delete:hover {
+  background: black;
+}
+.btn-group {
+  width: 100%;
 }
 .addButton {
   display: inline;
@@ -68,4 +83,14 @@ td {
 }
 .modal1 {
   background: green;
+}
+.fruitsCover {
+  background: url('./components/fruits.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  color: transparent;
+  margin: 0 auto;
 }

@@ -14,8 +14,11 @@ import {
   Input,
   ButtonGroup
 } from 'reactstrap';
-
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Topcontrols from './components/Topcontrols';
 import axios from 'axios';
+import Modalhead from './components/Modalhead';
 
 class App extends Component {
   constructor(props) {
@@ -38,32 +41,21 @@ class App extends Component {
         location: ''
       },
       newFoodModal: false,
-      editFoodModal: false
+      editFoodModal: false,
+      currentPage: 'home',
+      fridgeitems: []
     };
+    this.showAll = this.showAll.bind(this);
+    this.showFridge = this.showFridge.bind(this);
+    this.showPantry = this.showPantry.bind(this);
+    this.toggleNewFoodModal = this.toggleNewFoodModal.bind(this);
+    this.toggleEditFoodModal = this.toggleEditFoodModal.bind(this);
+    this.addFood = this.addFood.bind(this);
   }
 
   componentWillMount() {
-    // axios.get('/foods').then(response => {
-    //   console.log(response);
-    //   this.setState({
-    //     foods: response.data.foods
-    //   });
-    // });
     this.refreshFoods();
   }
-
-  // componentDidMount() {
-  //   this.getFoods();
-  // }
-
-  // async getFoods() {
-  //   const response = await axios.get('/foods');
-  //   console.log(response);
-  //   const data = response.data.foods;
-  //   this.setState({
-  //     foods: data
-  //   });
-  // }
 
   toggleNewFoodModal() {
     this.setState({
@@ -155,30 +147,63 @@ class App extends Component {
     });
   }
 
+  showFridge(rd) {
+    axios.get('/foods').then(response => {
+      console.log(response.data.foods);
+      const filtered = response.data.foods.filter(rd => {
+        return rd.location == 'fridge';
+      });
+      this.setState({
+        foods: filtered
+      });
+    });
+  }
+
+  showPantry(rd) {
+    axios.get('/foods').then(response => {
+      console.log(response.data.foods);
+      const filtered = response.data.foods.filter(rd => {
+        return rd.location == 'pantry';
+      });
+      this.setState({
+        foods: filtered
+      });
+    });
+  }
+
+  showAll(rd) {
+    axios.get('/foods').then(response => {
+      console.log(response.data.foods);
+      const all = response.data.foods.map(rd => {
+        return rd;
+      });
+      this.setState({
+        foods: all
+      });
+    });
+  }
+
   render() {
     return (
       <div className='App container'>
-        {/* Header comonent */}
-        {/* <header>FOOD TRACKER APP</header> */}
-        <Button color='primary' className='logo'>
-          F<span>🍎🍏D</span> TRACKER
-        </Button>
-        <ButtonGroup>
-          <Button
-            color='primary'
-            className='addButton'
-            onClick={this.toggleNewFoodModal.bind(this)}
-          >
-            Add a food item
-          </Button>
-          <Button color='primary' className='addButton'>
-            Check the Fridge
-          </Button>
-          <Button color='primary' className='addButton'>
-            Check the Pantry
-          </Button>
-        </ButtonGroup>
-        <Modal
+        {/* Header component */}
+        <Header className='logo' />
+        {/* Header component */}
+        {/* top controls */}
+        <Topcontrols
+          toggleNewFoodModal={this.toggleNewFoodModal}
+          showAll={this.showAll}
+          showFridge={this.showFridge}
+          showPantry={this.showPantry}
+        />
+        {/* top controls */}
+        <Modalhead
+          newFoodModal={this.state.newFoodModal}
+          newFoodData={this.state.newFoodData}
+          toggleNewFoodModal={this.toggleNewFoodModal}
+          addFood={this.addFood}
+        />
+        {/* <Modal
           className='modal'
           isOpen={this.state.newFoodModal}
           toggle={this.toggleNewFoodModal.bind(this)}
@@ -259,8 +284,7 @@ class App extends Component {
               Cancel
             </Button>
           </ModalFooter>
-        </Modal>
-        {/* head component  */}
+        </Modal> */}
 
         {/* edit modal         */}
         <Modal
@@ -349,11 +373,6 @@ class App extends Component {
 
         <Table size='sm' className='table'>
           <thead>
-            {/* <tr>
-              <th className='head' colSpan='6'>
-                {/* F<span>🍎🍏D</span> TRACKER */}
-            {/* </th>
-            </tr> */}
             <tr>
               <th>Item</th>
               <th>Quantity</th>
@@ -371,7 +390,7 @@ class App extends Component {
                   <td>{food.quantity}</td>
                   <td>{food.days_expiration}</td>
                   <td>{food.location}</td>
-                  <td>{food.pic}</td>
+                  <td className='emoji'>{food.pic}</td>
                   <button
                     type='submit'
                     className='edit'
@@ -399,6 +418,9 @@ class App extends Component {
             })}
           </tbody>
         </Table>
+        {/* Footer component */}
+        <Footer className='logo1' />
+        {/* Footer component */}
       </div>
     );
   }
