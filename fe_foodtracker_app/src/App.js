@@ -18,7 +18,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Topcontrols from './components/Topcontrols';
 import axios from 'axios';
-import Modalhead from './components/Modalhead';
+import ModalAddItem from './components/ModalAddItem';
+import ModalEditFood from './components/ModalEditFood';
 
 class App extends Component {
   constructor(props) {
@@ -45,12 +46,16 @@ class App extends Component {
       currentPage: 'home',
       fridgeitems: []
     };
+    this.addFood = this.addFood.bind(this);
     this.showAll = this.showAll.bind(this);
     this.showFridge = this.showFridge.bind(this);
     this.showPantry = this.showPantry.bind(this);
     this.toggleNewFoodModal = this.toggleNewFoodModal.bind(this);
     this.toggleEditFoodModal = this.toggleEditFoodModal.bind(this);
-    this.addFood = this.addFood.bind(this);
+    this.refreshFoods = this.refreshFoods.bind(this);
+    this.updateFood = this.updateFood.bind(this);
+    this.editFood = this.editFood.bind(this);
+    this.deleteFood = this.deleteFood.bind(this);
   }
 
   componentWillMount() {
@@ -71,10 +76,10 @@ class App extends Component {
 
   addFood() {
     axios.post('/foods', this.state.newFoodData).then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       let { foods } = this.state;
 
-      foods.push(response.data);
+      foods.push(response.data.food);
       this.setState({
         foods,
         newFoodModal: false,
@@ -87,7 +92,7 @@ class App extends Component {
         }
       });
     });
-    return this.state.foods;
+    // return this.state.foods;
   }
 
   updateFood() {
@@ -134,7 +139,7 @@ class App extends Component {
   }
 
   editFood(id, item, quantity, days_expiration, location, pic) {
-    console.log(item);
+    // console.log(item);
     this.setState({
       editFoodData: { id, item, quantity, days_expiration, location, pic },
       editFoodModal: !this.state.editFoodModal
@@ -149,7 +154,7 @@ class App extends Component {
 
   showFridge(rd) {
     axios.get('/foods').then(response => {
-      console.log(response.data.foods);
+      // console.log(response.data.foods);
       const filtered = response.data.foods.filter(rd => {
         return rd.location == 'fridge';
       });
@@ -161,7 +166,7 @@ class App extends Component {
 
   showPantry(rd) {
     axios.get('/foods').then(response => {
-      console.log(response.data.foods);
+      // console.log(response.data.foods);
       const filtered = response.data.foods.filter(rd => {
         return rd.location == 'pantry';
       });
@@ -173,7 +178,7 @@ class App extends Component {
 
   showAll(rd) {
     axios.get('/foods').then(response => {
-      console.log(response.data.foods);
+      // console.log(response.data.foods);
       const all = response.data.foods.map(rd => {
         return rd;
       });
@@ -188,7 +193,6 @@ class App extends Component {
       <div className='App container'>
         {/* Header component */}
         <Header className='logo' />
-        {/* Header component */}
         {/* top controls */}
         <Topcontrols
           toggleNewFoodModal={this.toggleNewFoodModal}
@@ -196,180 +200,21 @@ class App extends Component {
           showFridge={this.showFridge}
           showPantry={this.showPantry}
         />
-        {/* top controls */}
-        <Modalhead
+        {/* ModalAddItem */}
+        <ModalAddItem
           newFoodModal={this.state.newFoodModal}
           newFoodData={this.state.newFoodData}
           toggleNewFoodModal={this.toggleNewFoodModal}
           addFood={this.addFood}
         />
-        {/* <Modal
-          className='modal'
-          isOpen={this.state.newFoodModal}
-          toggle={this.toggleNewFoodModal.bind(this)}
-        >
-          <ModalHeader toggle={this.toggleNewFoodModal.bind(this)}>
-            Add a food item
-          </ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for='item'>Item</Label>
-              <Input
-                id='item'
-                value={this.state.newFoodData.item}
-                onChange={e => {
-                  let { newFoodData } = this.state;
-                  newFoodData.item = e.target.value;
-                  this.setState({ newFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='quantity'>Quantity</Label>
-              <Input
-                id='quantity'
-                value={this.state.newFoodData.quantity}
-                onChange={e => {
-                  let { newFoodData } = this.state;
-                  newFoodData.quantity = e.target.value;
-                  this.setState({ newFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='days'>Days</Label>
-              <Input
-                id='days'
-                value={this.state.newFoodData.days_expiration}
-                onChange={e => {
-                  let { newFoodData } = this.state;
-                  newFoodData.days_expiration = e.target.value;
-                  this.setState({ newFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='location'>Location</Label>
-              <Input
-                id='location'
-                value={this.state.newFoodData.location}
-                onChange={e => {
-                  let { newFoodData } = this.state;
-                  newFoodData.location = e.target.value;
-                  this.setState({ newFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='emoji'>Emoji</Label>
-              <Input
-                id='emoji'
-                value={this.state.newFoodData.pic}
-                onChange={e => {
-                  let { newFoodData } = this.state;
-                  newFoodData.pic = e.target.value;
-                  this.setState({ newFoodData });
-                }}
-              />
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color='primary' onClick={this.addFood.bind(this)}>
-              Add Item
-            </Button>{' '}
-            <Button
-              color='secondary'
-              onClick={this.toggleNewFoodModal.bind(this)}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal> */}
-
         {/* edit modal         */}
-        <Modal
-          className='modal'
-          isOpen={this.state.editFoodModal}
-          toggle={this.toggleEditFoodModal.bind(this)}
-        >
-          <ModalHeader toggle={this.toggleEditFoodModal.bind(this)}>
-            Edit a food item
-          </ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for='item'>Item</Label>
-              <Input
-                id='item'
-                value={this.state.editFoodData.item}
-                onChange={e => {
-                  let { editFoodData } = this.state;
-                  editFoodData.item = e.target.value;
-                  this.setState({ editFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='quantity'>Quantity</Label>
-              <Input
-                id='quantity'
-                value={this.state.editFoodData.quantity}
-                onChange={e => {
-                  let { editFoodData } = this.state;
-                  editFoodData.quantity = e.target.value;
-                  this.setState({ editFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='days'>Days</Label>
-              <Input
-                id='days'
-                value={this.state.editFoodData.days_expiration}
-                onChange={e => {
-                  let { editFoodData } = this.state;
-                  editFoodData.days_expiration = e.target.value;
-                  this.setState({ editFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='location'>Location</Label>
-              <Input
-                id='location'
-                value={this.state.editFoodData.location}
-                onChange={e => {
-                  let { editFoodData } = this.state;
-                  editFoodData.location = e.target.value;
-                  this.setState({ editFoodData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='emoji'>Emoji</Label>
-              <Input
-                id='emoji'
-                value={this.state.editFoodData.pic}
-                onChange={e => {
-                  let { editFoodData } = this.state;
-                  editFoodData.pic = e.target.value;
-                  this.setState({ editFoodData });
-                }}
-              />
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color='primary' onClick={this.updateFood.bind(this)}>
-              Update Item
-            </Button>{' '}
-            <Button
-              color='secondary'
-              onClick={this.toggleEditFoodModal.bind(this)}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
-        {/* edit modal  */}
+        <ModalEditFood
+          editFoodModal={this.state.editFoodModal}
+          editFoodData={this.state.editFoodData}
+          toggleEditFoodModal={this.toggleEditFoodModal}
+          updateFood={this.updateFood}
+          refreshFoods={this.refreshFoods}
+        />
 
         <Table size='sm' className='table'>
           <thead>

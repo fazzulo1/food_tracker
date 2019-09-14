@@ -9,7 +9,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-class Modalhead extends Component {
+class ModalAddItem extends Component {
   render(props) {
     return (
       <div>
@@ -100,4 +100,4 @@ class Modalhead extends Component {
   }
 }
 
-export default Modalhead;
+export default ModalAddItem;
