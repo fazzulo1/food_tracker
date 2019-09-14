@@ -2,24 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Table } from 'react-bootstrap';
-import {
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Label,
-  Input,
-  ButtonGroup
-} from 'reactstrap';
+import { Table } from 'reactstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Topcontrols from './components/Topcontrols';
 import axios from 'axios';
 import ModalAddItem from './components/ModalAddItem';
 import ModalEditFood from './components/ModalEditFood';
+import Foods from './components/Foods';
 
 class App extends Component {
   constructor(props) {
@@ -43,7 +33,6 @@ class App extends Component {
       },
       newFoodModal: false,
       editFoodModal: false,
-      currentPage: 'home',
       fridgeitems: []
     };
     this.addFood = this.addFood.bind(this);
@@ -56,6 +45,7 @@ class App extends Component {
     this.updateFood = this.updateFood.bind(this);
     this.editFood = this.editFood.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
+    this.sortFoods = this.sortFoods.bind(this);
   }
 
   componentWillMount() {
@@ -113,7 +103,7 @@ class App extends Component {
         pic
       })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.refreshFoods();
 
         this.setState({
@@ -131,7 +121,7 @@ class App extends Component {
 
   refreshFoods() {
     axios.get('/foods').then(response => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         foods: response.data.foods
       });
@@ -158,8 +148,22 @@ class App extends Component {
       const filtered = response.data.foods.filter(rd => {
         return rd.location == 'fridge';
       });
+      console.log(filtered);
+      const fsort = (a, b) => {
+        const genreA = a.item;
+        const genreB = b.item;
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      };
+
       this.setState({
-        foods: filtered
+        // foods: filtered
+        foods: filtered.sort(fsort)
       });
     });
   }
@@ -170,8 +174,22 @@ class App extends Component {
       const filtered = response.data.foods.filter(rd => {
         return rd.location == 'pantry';
       });
+      console.log(filtered);
+      const fsort = (a, b) => {
+        const genreA = a.item;
+        const genreB = b.item;
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      };
+
       this.setState({
-        foods: filtered
+        // foods: filtered
+        foods: filtered.sort(fsort)
       });
     });
   }
@@ -182,8 +200,43 @@ class App extends Component {
       const all = response.data.foods.map(rd => {
         return rd;
       });
+      console.log(all);
+      const fsort = (a, b) => {
+        const genreA = a.item;
+        const genreB = b.item;
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      };
+
       this.setState({
-        foods: all
+        // foods: all
+        foods: all.sort(fsort)
+      });
+    });
+  }
+
+  sortFoods(rd) {
+    axios.get('/foods').then(response => {
+      const tosort = response.data.foods;
+      // console.log(tosort);
+      const fsort = (a, b) => {
+        const genreA = a.item;
+        const genreB = b.item;
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      };
+      this.setState({
+        foods: tosort.sort(fsort)
       });
     });
   }
@@ -215,8 +268,14 @@ class App extends Component {
           updateFood={this.updateFood}
           refreshFoods={this.refreshFoods}
         />
-
-        <Table size='sm' className='table'>
+        {/* show foods */}
+        <Foods
+          foods={this.state.foods}
+          editFood={this.editFood}
+          deleteFood={this.deleteFood}
+          sortFoods={this.sortFoods}
+        />
+        {/* <Table size='sm' className='table'>
           <thead>
             <tr>
               <th>Item</th>
@@ -262,10 +321,9 @@ class App extends Component {
               );
             })}
           </tbody>
-        </Table>
+        </Table> */}
         {/* Footer component */}
         <Footer className='logo1' />
-        {/* Footer component */}
       </div>
     );
   }
