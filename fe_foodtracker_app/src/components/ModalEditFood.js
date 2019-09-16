@@ -71,6 +71,18 @@ class ModalEditFood extends Component {
               />
             </FormGroup>
             <FormGroup>
+              <Label for='nutrifacts'>NutriFacts</Label>
+              <Input
+                id='nutrifacts'
+                value={this.props.editFoodData.nutrifacts}
+                onChange={e => {
+                  let { editFoodData } = this.props;
+                  editFoodData.nutrifacts = e.target.value;
+                  this.setState({ editFoodData });
+                }}
+              />
+            </FormGroup>
+            <FormGroup>
               <Label for='emoji'>Emoji</Label>
               <Input
                 id='emoji'

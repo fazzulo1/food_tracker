@@ -71,6 +71,18 @@ class ModalAddItem extends Component {
               />
             </FormGroup>
             <FormGroup>
+              <Label for='nutrifacts'>NutriFacts</Label>
+              <Input
+                id='nutrifacts'
+                value={this.props.newFoodData.nutrifacts}
+                onChange={e => {
+                  let { newFoodData } = this.props;
+                  newFoodData.nutrifacts = e.target.value;
+                  this.setState({ newFoodData });
+                }}
+              />
+            </FormGroup>
+            <FormGroup>
               <Label for='emoji'>Emoji</Label>
               <Input
                 id='emoji'

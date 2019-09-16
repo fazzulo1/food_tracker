@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
+import Nutrifacts from './Nutrifacts';
 class Foods extends Component {
-  render(props) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      food: {},
+      isFoodSet: false
+    };
+    this.getFood = this.getFood.bind(this);
+  }
+
+  getFood(food) {
+    this.setState({
+      food: food,
+      isFoodSet: true
+    });
+  }
+
+  render() {
     return (
       <div>
         <Table size='sm' className='table'>
@@ -11,6 +28,7 @@ class Foods extends Component {
               <th>Quantity</th>
               <th>Days</th>
               <th>Location</th>
+              {/* <th>Nutrifacts</th> */}
               <th>😋</th>
               <th>✍ || ❌</th>
             </tr>
@@ -19,7 +37,9 @@ class Foods extends Component {
             {this.props.foods.map((food, index) => {
               return (
                 <tr key={food.id}>
-                  <td>{food.item}</td>
+                  <td key={food.id} onMouseOver={() => this.getFood(food)}>
+                    {food.item}
+                  </td>
                   <td>{food.quantity}</td>
                   <td>{food.days_expiration}</td>
                   <td>{food.location}</td>
@@ -34,7 +54,8 @@ class Foods extends Component {
                       food.quantity,
                       food.days_expiration,
                       food.location,
-                      food.pic
+                      food.pic,
+                      food.nutrifacts
                     )}
                   >
                     ✍
@@ -51,6 +72,9 @@ class Foods extends Component {
             })}
           </tbody>
         </Table>
+        {/* <Table size='sm' className='table'>
+          <Nutrifacts getFood={this.getFood} food={this.state.food} />
+        </Table> */}
       </div>
     );
   }

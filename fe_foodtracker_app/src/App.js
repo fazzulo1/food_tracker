@@ -10,6 +10,7 @@ import axios from 'axios';
 import ModalAddItem from './components/ModalAddItem';
 import ModalEditFood from './components/ModalEditFood';
 import Foods from './components/Foods';
+import Nutrifacts from './components/Nutrifacts';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,8 @@ class App extends Component {
         quantity: '',
         pic: '',
         days_expiration: '',
-        location: ''
+        location: '',
+        nutrifacts: ''
       },
       editFoodData: {
         id: '',
@@ -29,11 +31,13 @@ class App extends Component {
         quantity: '',
         pic: '',
         days_expiration: '',
-        location: ''
+        location: '',
+        nutrifacts: ''
       },
       newFoodModal: false,
       editFoodModal: false,
-      fridgeitems: []
+      fridgeitems: [],
+      food: {}
     };
     this.addFood = this.addFood.bind(this);
     this.showAll = this.showAll.bind(this);
@@ -46,6 +50,7 @@ class App extends Component {
     this.editFood = this.editFood.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
     this.sortFoods = this.sortFoods.bind(this);
+    // this.getFood = this.getFood.bind(this);
   }
 
   componentWillMount() {
@@ -78,11 +83,11 @@ class App extends Component {
           quantity: '',
           days_expiration: '',
           location: '',
-          pic: ''
+          pic: '',
+          nutrifacts: ''
         }
       });
     });
-    // return this.state.foods;
   }
 
   updateFood() {
@@ -92,7 +97,8 @@ class App extends Component {
       quantity,
       days_expiration,
       location,
-      pic
+      pic,
+      nutrifacts
     } = this.state.editFoodData;
     axios
       .put('/foods/' + this.state.editFoodData.id, {
@@ -100,7 +106,8 @@ class App extends Component {
         quantity,
         days_expiration,
         location,
-        pic
+        pic,
+        nutrifacts
       })
       .then(response => {
         // console.log(response.data);
@@ -113,7 +120,8 @@ class App extends Component {
             quantity: '',
             days_expiration: '',
             location: '',
-            pic: ''
+            pic: '',
+            nutrifacts: ''
           }
         });
       });
@@ -128,10 +136,18 @@ class App extends Component {
     });
   }
 
-  editFood(id, item, quantity, days_expiration, location, pic) {
+  editFood(id, item, quantity, days_expiration, location, pic, nutrifacts) {
     // console.log(item);
     this.setState({
-      editFoodData: { id, item, quantity, days_expiration, location, pic },
+      editFoodData: {
+        id,
+        item,
+        quantity,
+        days_expiration,
+        location,
+        pic,
+        nutrifacts
+      },
       editFoodModal: !this.state.editFoodModal
     });
   }
@@ -274,54 +290,8 @@ class App extends Component {
           editFood={this.editFood}
           deleteFood={this.deleteFood}
           sortFoods={this.sortFoods}
+          getFood={this.getFood}
         />
-        {/* <Table size='sm' className='table'>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Quantity</th>
-              <th>Days</th>
-              <th>Location</th>
-              <th>😋</th>
-              <th>✍ || ❌</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.foods.map((food, index) => {
-              return (
-                <tr key={food.id}>
-                  <td>{food.item}</td>
-                  <td>{food.quantity}</td>
-                  <td>{food.days_expiration}</td>
-                  <td>{food.location}</td>
-                  <td className='emoji'>{food.pic}</td>
-                  <button
-                    type='submit'
-                    className='edit'
-                    onClick={this.editFood.bind(
-                      this,
-                      food.id,
-                      food.item,
-                      food.quantity,
-                      food.days_expiration,
-                      food.location,
-                      food.pic
-                    )}
-                  >
-                    ✍
-                  </button>
-                  <button
-                    type='submit'
-                    className='delete'
-                    onClick={this.deleteFood.bind(this, food.id)}
-                  >
-                    ❌
-                  </button>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table> */}
         {/* Footer component */}
         <Footer className='logo1' />
       </div>

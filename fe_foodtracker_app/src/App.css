@@ -17,6 +17,8 @@ body {
   text-align: center;
   font-size: 14px;
   border: 1px solid lightgrey;
+  /* float: left; */
+  width: 100%;
 }
 
 thead {
@@ -44,10 +46,12 @@ td {
   border: 5px double white;
   border-bottom: none;
   width: 100%;
+  /* float: left; */
 }
 .logo1 {
   border: 5px double white;
   width: 100%;
+  /* float: left; */
 }
 .emoji:hover {
   background: orange;
@@ -70,6 +74,7 @@ td {
 }
 .btn-group {
   width: 100%;
+  /* float: left; */
 }
 .addButton {
   display: inline;
@@ -94,3 +99,24 @@ td {
   color: transparent;
   margin: 0 auto;
 }
+/* .showNutrifacts {
+  float: left;
+} */
+
+/* img:after {
+  content: '\f1c5'' ' attr(alt);
+
+  font-size: 16px;
+  font-family: FontAwesome;
+  color: white;
+
+  display: inline;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 5%;
+  background-color: #007bff;
+  margin: 0 auto;
+} */
