@@ -12,7 +12,7 @@ This is a fullstack application and includes the following tools:
 Frontend: HTML, CSS, JavaScript, React, ReactStrap.
 Backend: Ruby
 
-# Sedd and Data Schema
+# Seed and Data Schema
 
 As an alternative to using an API as the application data source, the web application database was seeded to store some initial data.
 
