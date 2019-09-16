@@ -16,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showMainApp: false,
       foods: [],
       newFoodData: {
         item: '',
@@ -51,6 +52,8 @@ class App extends Component {
     this.deleteFood = this.deleteFood.bind(this);
     this.sortFoods = this.sortFoods.bind(this);
     // this.getFood = this.getFood.bind(this);
+    this.mainContent = this.mainContent.bind(this);
+    this.showMainApp = this.showMainApp.bind(this);
   }
 
   componentWillMount() {
@@ -257,45 +260,68 @@ class App extends Component {
     });
   }
 
+  showMainApp() {
+    this.setState({
+      showMainApp: true
+    });
+  }
+
+  mainContent() {
+    if (this.state.showMainApp) {
+      return (
+        <div className='App container'>
+          <Header className='logo' />
+
+          <Topcontrols
+            toggleNewFoodModal={this.toggleNewFoodModal}
+            showAll={this.showAll}
+            showFridge={this.showFridge}
+            showPantry={this.showPantry}
+          />
+
+          <ModalAddItem
+            newFoodModal={this.state.newFoodModal}
+            newFoodData={this.state.newFoodData}
+            toggleNewFoodModal={this.toggleNewFoodModal}
+            addFood={this.addFood}
+          />
+
+          <ModalEditFood
+            editFoodModal={this.state.editFoodModal}
+            editFoodData={this.state.editFoodData}
+            toggleEditFoodModal={this.toggleEditFoodModal}
+            updateFood={this.updateFood}
+            refreshFoods={this.refreshFoods}
+          />
+
+          <Foods
+            foods={this.state.foods}
+            editFood={this.editFood}
+            deleteFood={this.deleteFood}
+            sortFoods={this.sortFoods}
+            getFood={this.getFood}
+          />
+
+          <Footer className='logo1' />
+        </div>
+      );
+    } else {
+      return (
+        <div class='container1'>
+          <div class='cover'>
+            {/* <!-- <img src="./fruits.png" alt="" /> --> */}
+            <h1>
+              F<span>🍎🍊D</span> TRACKER
+            </h1>
+            <button onClick={this.showMainApp}>enter</button>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    return (
-      <div className='App container'>
-        {/* Header component */}
-        <Header className='logo' />
-        {/* top controls */}
-        <Topcontrols
-          toggleNewFoodModal={this.toggleNewFoodModal}
-          showAll={this.showAll}
-          showFridge={this.showFridge}
-          showPantry={this.showPantry}
-        />
-        {/* ModalAddItem */}
-        <ModalAddItem
-          newFoodModal={this.state.newFoodModal}
-          newFoodData={this.state.newFoodData}
-          toggleNewFoodModal={this.toggleNewFoodModal}
-          addFood={this.addFood}
-        />
-        {/* edit modal         */}
-        <ModalEditFood
-          editFoodModal={this.state.editFoodModal}
-          editFoodData={this.state.editFoodData}
-          toggleEditFoodModal={this.toggleEditFoodModal}
-          updateFood={this.updateFood}
-          refreshFoods={this.refreshFoods}
-        />
-        {/* show foods */}
-        <Foods
-          foods={this.state.foods}
-          editFood={this.editFood}
-          deleteFood={this.deleteFood}
-          sortFoods={this.sortFoods}
-          getFood={this.getFood}
-        />
-        {/* Footer component */}
-        <Footer className='logo1' />
-      </div>
-    );
+    return <>{this.mainContent()}</>;
   }
 }
 
